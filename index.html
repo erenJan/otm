@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            width: auto;
+        }
+        
+        .container {
+            margin: auto;
+            width: 400px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+        }
+        
+        .wallet {}
+        
+        .coin-line {
+            margin: 3px;
+            padding: 10px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+        }
+        
+        .coin-title {
+            display: flex;
+            flex-direction: row;
+            vertical-align: middle;
+        }
+        
+        .coin-image img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            padding-right: 10px;
+        }
+        
+        .coins {
+            width: 375px;
+            margin: auto;
+        }
+        
+        .price {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        p {
+            margin: 0;
+            padding: 0;
+        }
+        
+        h3 {
+            padding: 0;
+            margin: 0;
+        }
+        
+        h1 {
+            color: #111;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 55px;
+            font-weight: bold;
+            text-align: start;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+        
+        @media only screen and (min-width: 600px) {
+            body {
+                width: auto;
+            }
+            .container {
+                width: 80vw;
+            }
+            .coins {
+                width: 80vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>OTM A.Ş</h1>
+        <div class="wallet">
+            <div class="coin-line">
+                <div class="coin-title">
+                    <div class="coin-image">
+                        <img src="https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=001">
+                    </div>
+                    <div class="coin-name">
+                        <h4>Mana</h4>
+                    </div>
+                </div>
+                <div style="padding-right: 10px;">
+                    <div class="amount" style="text-align: end;float:float-right;margin: 0;padding-top: 10px;padding-left: 10px;">
+                        <h3 id="amount-mana">25</h3>
+                    </div>
+                    <div class="price" style="margin: 0;padding-top: 5px;">
+                        <pre style="padding: 0;margin: 0;">₺</pre>
+                        <p id="mana-price">245</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="coins">
+            <div class="coinmarketcap-currency-widget" data-currencyid="1966" data-base="TRY" data-secondary="" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-statsticker="true" data-stats="USD"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+    <script>
+        var url = "https://api.coingecko.com/api/v3/simple/price?ids=decentraland&vs_currencies=try"
+        var xmlhttp = new XMLHttpRequest();
+
+        var mana = 4
+        var amount_mana = document.getElementById("amount-mana").innerText
+
+        xmlhttp.onreadystatechange = function() {
+            var myArr = JSON.parse(this.responseText);
+            console.log(myArr);
+            try {
+                var mana = myArr["decentraland"]["try"]
+            } catch (err) {
+                console.log(err)
+            }
+            var mana_price = mana * amount_mana
+
+            document.getElementById("mana-price").innerHTML = mana_price.toFixed(2);
+        }
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+    </script>
+</body>
+
+</html>
